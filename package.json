@@ -1,0 +1,35 @@
+{
+  "name": "aigents-uno-web",
+  "version": "1.0.0",
+  "description": "Vercel + Next.js based setup for the AIGents site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "lint": "cd aigents-web && npm run lint",
+    "lint:fix": "cd aigents-web && npm run lint:fix",
+    "build": "cd aigents-web && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aigentsmx/aigents-uno-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aigentsmx/aigents-uno-web/issues"
+  },
+  "homepage": "https://github.com/aigentsmx/aigents-uno-web#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11"
+  },
+  "lint-staged": {
+    "aigents-web/**/*.{js,jsx,ts,tsx}": [
+      "cd aigents-web && npx eslint --fix",
+      "git add"
+    ]
+  }
+}
