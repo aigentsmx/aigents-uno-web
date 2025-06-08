@@ -9,25 +9,6 @@ import { ArrowRight, Bot, Zap, Shield, Mail, Phone, MapPin } from "lucide-react"
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Header/Navigation */}
-      <header className="fixed top-0 w-full bg-[#091442]/90 backdrop-blur-md z-50">
-        <nav className="container mx-auto px-6 py-6 flex justify-between items-center h-20">
-          <div className="text-3xl font-bold text-[#9c38e6]">
-            AIGents
-          </div>
-          <div className="hidden md:flex space-x-8">
-            <a href="#inicio" className="text-gray-300 hover:text-[#f6e6c3] transition-colors text-lg">Inicio</a>
-            <a href="#servicios" className="text-gray-300 hover:text-[#f6e6c3] transition-colors text-lg">Servicios</a>
-            <a href="#contacto" className="text-gray-300 hover:text-[#f6e6c3] transition-colors text-lg">Contacto</a>
-          </div>
-          <Link href="/config">
-            <Button className="bg-gradient-to-r from-[#8c26d5] to-[#f6e6c3] text-black hover:scale-100 transition-transform px-6 py-3 text-lg font-semibold">
-              Configurar
-            </Button>
-          </Link>
-        </nav>
-      </header>
-
       {/* Hero Section */}
       <section id="inicio" className="flex min-h-screen flex-col items-center justify-center p-8 pt-24">
         <Image
