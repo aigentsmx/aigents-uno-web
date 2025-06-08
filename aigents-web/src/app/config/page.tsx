@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -68,13 +67,16 @@ export default function ConfigPage() {
               textShadow: '0 0 20px rgba(199, 90, 246, 0.5), 0 0 40px rgba(245, 90, 252, 0.3)'
             }}
           >
-            Configura tu Agente
+            Configura tu Agente de Prueba en dos Pasos
           </h1>
           
           <div className="w-24 h-1 mx-auto bg-gradient-to-r from-[#C75AF6] to-[#F55AFC] rounded-full shadow-lg shadow-purple-500/50"></div>
           
           <p className="mt-8 text-xl text-[#f6e6c3] font-medium max-w-2xl mx-auto leading-relaxed">
-            Personaliza el comportamiento de tu agente de IA y proporciona documentos de tu empresa para un mejor contexto.
+            1. Personaliza el comportamiento de tu agente de IA y proporciona documentos de tu empresa para un mejor contexto.
+          </p>
+          <p className="mt-8 text-xl text-[#f6e6c3] font-medium max-w-2xl mx-auto leading-relaxed">
+            2. Una vez guardada la configuración, podrás hacer una prueba para chatear con tu agente en la siguiente página.
           </p>
         </div>
 
@@ -227,15 +229,6 @@ export default function ConfigPage() {
             </Button>
           </div>
         </div>
-
-        {/* Info Alert */}
-        <Alert className="mt-16 border-[#C75AF6]/30 bg-[#C75AF6]/10 text-white p-6">
-          <Bot className="h-5 w-5" />
-          <AlertTitle className="text-lg">Información</AlertTitle>
-          <AlertDescription className="text-base mt-2">
-            Una vez guardada la configuración, tu agente estará listo para interactuar con los clientes usando el prompt personalizado y la información de los documentos subidos.
-          </AlertDescription>
-        </Alert>
       </div>
     </main>
   );
