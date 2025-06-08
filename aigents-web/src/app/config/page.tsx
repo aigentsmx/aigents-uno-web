@@ -13,6 +13,7 @@ export default function ConfigPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -287,19 +288,34 @@ export default function ConfigPage() {
                       key={index}
                       className="flex items-center justify-between p-4 bg-black/30 rounded-xl border border-gray-600"
                     >
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-4 flex-1">
                         <FileText className="h-6 w-6 text-[#F55AFC]" />
-                        <span className="text-white font-medium text-lg">{file.name}</span>
-                        <span className="text-gray-400">
-                          ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                        </span>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-4 mb-2">
+                            <span className="text-white font-medium text-lg">{file.name}</span>
+                            <span className="text-gray-400">
+                              ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                            </span>
+                          </div>
+                          
+                          {/* Progress Bar */}
+                          {isUploading && uploadProgress[file.name] !== undefined && (
+                            <div className="w-full bg-gray-700 rounded-full h-2">
+                              <div 
+                                className="bg-gradient-to-r from-[#C75AF6] to-[#F55AFC] h-2 rounded-full transition-all duration-300"
+                                style={{ width: `${uploadProgress[file.name]}%` }}
+                              ></div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
                         onClick={() => removeFile(index)}
-                        className="text-gray-400 hover:text-red-400 hover:bg-red-400/10 h-10 w-10"
+                        disabled={isUploading}
+                        className="text-gray-400 hover:text-red-400 hover:bg-red-400/10 h-10 w-10 disabled:opacity-50"
                       >
                         <X className="h-5 w-5" />
                       </Button>
