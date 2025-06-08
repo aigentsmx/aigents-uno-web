@@ -33,9 +33,11 @@ export default function Home() {
       <section id="servicios" className="py-32 px-8">
         <div className="container mx-auto">
           <h2 className="text-5xl font-bold text-center mb-6 text-[#f6e6c3]">
-            ¿Por qué elegir AIGents?
+            ¿Qué es AIGents?
           </h2>
           <p className="text-xl text-gray-300 text-center mb-24 max-w-3xl mx-auto leading-relaxed">
+            Somos una empresa que automatiza los procesos de atención al cliente de tu empresa utilizando Inteligencia Artificial Generativa. 
+            Garantizamos una experiencia de servicio al cliente de alta calidad mientras ahorras tiempo y dinero. 
             Nuestros agentes de IA están diseñados para brindar el mejor servicio al cliente, cada vez.
           </p>
           
@@ -45,10 +47,9 @@ export default function Home() {
               <div className="flex justify-center">
                 <Bot className="h-16 w-16 text-[#C75AF6]" />
               </div>
-              <h3 className="text-2xl font-bold text-[#f6e6c3]">IA Avanzada</h3>
+              <h3 className="text-2xl font-bold text-[#f6e6c3]">Tu Negocio, tu Marca, tu IA</h3>
               <p className="text-gray-300 leading-relaxed">
-                Agentes inteligentes que aprenden y mejoran continuamente para brindar 
-                respuestas precisas y personalizadas.
+                Implementamos agentes especializados en tu negocio, con un enfoque en la experiencia de usuario, la eficiencia y la generación de ventas. Para nosotros, la IA no es un gadget de novedad, es el instrumento que catapultará tu negocio brindando una atención al cliente espectacular.
               </p>
             </div>
 
@@ -57,10 +58,11 @@ export default function Home() {
               <div className="flex justify-center">
                 <Zap className="h-16 w-16 text-[#F55AFC]" />
               </div>
-              <h3 className="text-2xl font-bold text-[#f6e6c3]">Respuesta Instantánea</h3>
+              <h3 className="text-2xl font-bold text-[#f6e6c3]">Nuestra propuesta de valor</h3>
               <p className="text-gray-300 leading-relaxed">
-                Atención 24/7 con respuestas inmediatas. Tus clientes nunca tendrán 
-                que esperar por ayuda.
+                Estamos cansados de ver empresas implementando soluciones de IA que dañan la experiencia de usuario de sus clientes, no generan ventas y empeoran los procesos de atención al cliente.
+                AIGents ofrece un sistema de atención al cliente que es: consistente en cada etapa del funnel, flexible y que es capaz de atender a todos y cada uno de tus clientes.
+                Responde a todos tus clientes con la misma calidad, atiende cada una de sus dudas y necesidades, y genera ventas para tu negocio.
               </p>
             </div>
 
@@ -90,57 +92,7 @@ export default function Home() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-16">
-            {/* Contact Form */}
-            <div className="space-y-8 p-8 rounded-2xl bg-white/5 backdrop-blur-sm">
-              <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-[#f6e6c3]">Envíanos un mensaje</h3>
-                <p className="text-gray-300">
-                  Completa el formulario y nos pondremos en contacto contigo
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="nombre" className="text-gray-300">Nombre</Label>
-                    <Input 
-                      id="nombre" 
-                      placeholder="Tu nombre" 
-                      className="bg-white/10 text-white placeholder:text-gray-400 focus:border-[#f6e6c3]"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="empresa" className="text-gray-300">Empresa</Label>
-                    <Input 
-                      id="empresa" 
-                      placeholder="Tu empresa" 
-                      className="bg-white/10 text-white placeholder:text-gray-400 focus:border-[#f6e6c3]"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-300">Email</Label>
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="tu@email.com" 
-                    className="bg-white/10 text-white placeholder:text-gray-400 focus:border-[#f6e6c3]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="mensaje" className="text-gray-300">Mensaje</Label>
-                  <Textarea 
-                    id="mensaje" 
-                    placeholder="Cuéntanos sobre tu proyecto..."
-                    className="min-h-32 bg-white/10 text-white placeholder:text-gray-400 focus:border-[#f6e6c3]"
-                  />
-                </div>
-                <Button className="w-full bg-gradient-to-r from-[#8c26d5] to-[#f6e6c3] text-black font-bold text-xl py-4 px-6 h-14 hover:scale-100 transition-transform rounded-xl">
-                  Enviar Mensaje
-                </Button>
-              </div>
-            </div>
-
+            
             {/* Contact Info */}
             <div className="space-y-12">
               <div className="space-y-8">
