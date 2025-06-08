@@ -12,6 +12,7 @@ export default function ConfigPage() {
   const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -49,11 +50,103 @@ export default function ConfigPage() {
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  const handleSave = () => {
-    // TODO: Implementar guardado
-    console.log("Company Name:", companyName);
-    console.log("Prompt:", prompt);
-    console.log("Files:", files);
+  const uploadFileToS3 = async (file: File) => {
+    try {
+      // Step 1: Get presigned URL from Netlify function
+      const urlResponse = await fetch('/.netlify/functions/generate-upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+          companyName: companyName
+        })
+      });
+
+      if (!urlResponse.ok) {
+        throw new Error('Failed to get upload URL');
+      }
+
+      const { uploadUrl, s3Key, companyFolder } = await urlResponse.json();
+
+      // Step 2: Upload file directly to S3
+      const uploadResponse = await fetch(uploadUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type
+        }
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload file to S3');
+      }
+
+      return {
+        fileName: file.name,
+        s3Key,
+        companyFolder
+      };
+    } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
+    }
+  };
+
+  const handleSave = async () => {
+    if (!companyName.trim() || !prompt.trim()) {
+      alert('Por favor completa el nombre de la empresa y el prompt');
+      return;
+    }
+
+    setIsUploading(true);
+    
+    try {
+      // First, save the company configuration
+      console.log('Saving configuration...');
+      const configResponse = await fetch('/.netlify/functions/save-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyName: companyName.trim(),
+          prompt: prompt.trim()
+        })
+      });
+
+      if (!configResponse.ok) {
+        throw new Error('Failed to save configuration');
+      }
+
+      // Then upload files if any (this will trigger processing automatically)
+      if (files.length > 0) {
+        console.log('Uploading files to S3...');
+        
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          setUploadProgress(prev => ({ ...prev, [file.name]: 0 }));
+          
+          try {
+            await uploadFileToS3(file);
+            setUploadProgress(prev => ({ ...prev, [file.name]: 100 }));
+          } catch (error) {
+            console.error(`Failed to upload ${file.name}:`, error);
+            alert(`Error al subir ${file.name}. Por favor intenta de nuevo.`);
+            return;
+          }
+        }
+        
+        alert('¡Configuración guardada y archivos subidos! El procesamiento comenzará automáticamente.');
+      } else {
+        alert('¡Configuración guardada exitosamente!');
+      }
+      
+    } catch (error) {
+      console.error('Error saving configuration:', error);
+      alert('Error al guardar la configuración. Por favor intenta de nuevo.');
+    } finally {
+      setIsUploading(false);
+      setUploadProgress({});
+    }
   };
 
   return (
@@ -221,11 +314,12 @@ export default function ConfigPage() {
           <div className="flex justify-center py-12">
             <Button
               onClick={handleSave}
+              disabled={isUploading}
               size="lg"
-              className="group bg-gradient-to-r from-[#8c26d5] via-[#E8A5F9] to-[#f6e6c3] text-black font-bold text-xl w-[350px] h-[70px] rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 hover:from-[#8c26d5] hover:to-[#f9ebc9] flex items-center justify-center hover:shadow-[0_0_25px_#F55AFC]"
+              className="group bg-gradient-to-r from-[#8c26d5] via-[#E8A5F9] to-[#f6e6c3] text-black font-bold text-xl w-[350px] h-[70px] rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 hover:from-[#8c26d5] hover:to-[#f9ebc9] flex items-center justify-center hover:shadow-[0_0_25px_#F55AFC] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               <Save className="mr-3 h-7 w-7" />
-              Guardar Configuración
+              {isUploading ? 'Guardando...' : 'Guardar Configuración'}
             </Button>
           </div>
         </div>
