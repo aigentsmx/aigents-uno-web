@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-image: url('/tech-bg.png');
+  background-image: url('/tech-bg-dark.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
