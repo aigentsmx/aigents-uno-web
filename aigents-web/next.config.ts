@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+// aigents-web/next.config.ts
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  // 👇 Nuevo flag para que Next genere la carpeta `out/`
+  output: 'export',
+  images: { unoptimized: true }, // evita errores de <Image> al exportar
+}
 
-export default nextConfig;
+export default nextConfig
