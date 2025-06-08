@@ -1,7 +1,6 @@
+Morado logo #8c26d5
+Morado A #9c38e6
 Glow morado #C75AF6
-
 Glow rosa #F55AFC
-
 Amarillo suave #f6e6c3
-
 Azul Navy #091442
