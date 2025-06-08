@@ -28,8 +28,7 @@
   },
   "lint-staged": {
     "aigents-web/**/*.{js,jsx,ts,tsx}": [
-      "cd aigents-web && npx eslint --fix",
-      "git add"
+      "cd aigents-web && npx eslint --fix"
     ]
   }
 }
