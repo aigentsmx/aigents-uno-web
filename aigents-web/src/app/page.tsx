@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, Zap, Shield, Mail, Phone, MapPin } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export default function Home() {
   return (
