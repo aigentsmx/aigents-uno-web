@@ -1,3 +1,6 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
+
 export default function ConfigPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -25,6 +28,12 @@ export default function ConfigPage() {
           </div>
         </div>
       </div>
+      <Alert className="mt-8 text-left max-w-lg mx-auto border-purple-500 bg-purple-900/20 text-white">
+          <AlertTitle>Heads up!</AlertTitle>
+          <AlertDescription>
+            You are about to configure your agent. Please proceed with caution.
+          </AlertDescription>
+        </Alert>
     </main>
   );
 } 
