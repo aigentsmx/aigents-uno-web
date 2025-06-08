@@ -27,7 +27,7 @@ export default function Home() {
         
         {/* Contenido del botón */}
         <span className="relative z-10 flex items-center space-x-4 pl-4">
-          <span>Configura tu Agente de Prueba</span>
+          <span>Configura tu Agente de Prueba </span>
           <svg 
             className="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" 
             fill="none" 
