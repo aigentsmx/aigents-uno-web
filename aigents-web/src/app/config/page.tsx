@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Upload, FileText, X, Globe, Save, Building2 } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 export default function ConfigPage() {
   const [companyName, setCompanyName] = useState("");
@@ -13,6 +14,7 @@ export default function ConfigPage() {
   const [dragActive, setDragActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
+  const router = useRouter();
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -147,11 +149,11 @@ export default function ConfigPage() {
             return;
           }
         }
-        
-        alert('¡Configuración guardada y archivos subidos! El procesamiento comenzará automáticamente.');
-      } else {
-        alert('¡Configuración guardada exitosamente!');
       }
+      
+      // Success! Redirect to chat with company name
+      const sanitizedCompanyName = companyName.trim();
+      router.push(`/chat?company=${encodeURIComponent(sanitizedCompanyName)}`);
       
     } catch (error: unknown) {
       console.error('Error saving configuration:', error);
