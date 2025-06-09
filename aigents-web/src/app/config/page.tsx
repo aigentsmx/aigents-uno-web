@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload, FileText, X, Bot, Save, Building2 } from "lucide-react";
+import { Upload, FileText, X, Globe, Save, Building2 } from "lucide-react";
 
 export default function ConfigPage() {
   const [companyName, setCompanyName] = useState("");
-  const [prompt, setPrompt] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -95,8 +94,8 @@ export default function ConfigPage() {
   };
 
   const handleSave = async () => {
-    if (!companyName.trim() || !prompt.trim()) {
-      alert('Por favor completa el nombre de la empresa y el prompt');
+    if (!companyName.trim() || !websiteUrl.trim()) {
+      alert('Por favor completa el nombre de la empresa y el sitio web');
       return;
     }
 
@@ -110,7 +109,7 @@ export default function ConfigPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           companyName: companyName.trim(),
-          prompt: prompt.trim()
+          websiteUrl: websiteUrl.trim()
         })
       });
 
@@ -167,7 +166,7 @@ export default function ConfigPage() {
           <div className="w-24 h-1 mx-auto bg-gradient-to-r from-[#C75AF6] to-[#F55AFC] rounded-full shadow-lg shadow-purple-500/50"></div>
           
           <p className="mt-8 text-xl text-[#f6e6c3] font-medium max-w-2xl mx-auto leading-relaxed">
-            1. Personaliza el comportamiento de tu agente de IA y proporciona documentos de tu empresa para un mejor contexto.
+            1. Proporciona el nombre y sitio web de tu empresa, además de documentos relevantes para dar contexto a tu agente.
           </p>
           <p className="mt-8 text-xl text-[#f6e6c3] font-medium max-w-2xl mx-auto leading-relaxed">
             2. Una vez guardada la configuración, podrás hacer una prueba para chatear con tu agente en la siguiente página.
@@ -199,30 +198,27 @@ export default function ConfigPage() {
             />
           </div>
 
-          {/* Prompt Section */}
+          {/* Website URL Section */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <Bot className="h-8 w-8 text-[#F55AFC]" />
-              <Label htmlFor="prompt" className="text-2xl font-bold text-[#f6e6c3]">
-                Prompt del Agente
+              <Globe className="h-8 w-8 text-[#F55AFC]" />
+              <Label htmlFor="websiteUrl" className="text-2xl font-bold text-[#f6e6c3]">
+                Sitio Web de la Empresa
               </Label>
             </div>
             
             <p className="text-gray-300 text-lg">
-              Define cómo debe comportarse tu agente de IA. Describe su personalidad, tono, y cómo debe interactuar con los clientes.
+              Proporciona la URL del sitio web de tu empresa. Usaremos esta información para entender mejor tu negocio y personalizar las respuestas del agente.
             </p>
             
-            <Textarea
-              id="prompt"
-              placeholder="Ejemplo: Eres un asistente especializado en atención al cliente para una empresa de tecnología. Debes ser amable, profesional y resolver las dudas de los clientes de manera eficiente. Siempre mantén un tono cordial y ofrece soluciones concretas..."
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              className="min-h-[100px] bg-black/30 border-[#C75AF6]/30 text-white placeholder:text-gray-400 focus:border-[#F55AFC] focus:ring-[#F55AFC]/20 resize-none text-lg"
+            <Input
+              id="websiteUrl"
+              placeholder="https://www.tuempresa.com"
+              value={websiteUrl}
+              onChange={(e) => setWebsiteUrl(e.target.value)}
+              className="h-14 bg-black/30 border-[#f6e6c3]/30 text-white placeholder:text-gray-400 focus:border-[#f6e6c3] focus:ring-[#f6e6c3]/20 text-lg"
+              type="url"
             />
-            
-            <div className="text-sm text-gray-400">
-              {prompt.length} caracteres
-            </div>
           </div>
 
           {/* File Upload Section */}
