@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "prepare": "husky"
+    "prepare": "command -v husky >/dev/null 2>&1 && husky || echo 'Husky not available in production, skipping git hooks setup'"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.826.0",
