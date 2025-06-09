@@ -48,7 +48,6 @@ exports.handler = async (event) => {
       Bucket: process.env.AWS_S3_BUCKET,
       Key: s3Key,
       ContentType: fileType,
-      ContentDisposition: 'inline',
       Metadata: {
         'company-name': companyName,
         'uploaded-at': new Date().toISOString(),
