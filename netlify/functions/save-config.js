@@ -58,10 +58,10 @@ exports.handler = async (event) => {
 
     // Initialize S3 client
     const s3Client = new S3Client({
-      region: process.env.AWS_REGION,
+      region: process.env.MY_AWS_REGION,
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY
       }
     });
 
@@ -79,7 +79,7 @@ exports.handler = async (event) => {
     const configKey = `web/companies/${sanitizedCompanyName}/config.json`;
 
     const command = new PutObjectCommand({
-      Bucket: process.env.AWS_S3_BUCKET,
+      Bucket: process.env.MY_AWS_S3_BUCKET,
       Key: configKey,
       Body: JSON.stringify(config, null, 2),
       ContentType: 'application/json',

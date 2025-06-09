@@ -99,10 +99,10 @@ exports.handler = async (event) => {
 
 ```env
 # AWS (Required)
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_REGION=us-east-1
-AWS_S3_BUCKET=your-s3-bucket-name
+MY_AWS_ACCESS_KEY_ID=your_aws_access_key
+MY_AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+MY_AWS_REGION=us-east-1
+MY_AWS_S3_BUCKET=your-s3-bucket-name
 
 # Vector Database (Choose one)
 PINECONE_API_KEY=your_pinecone_key
