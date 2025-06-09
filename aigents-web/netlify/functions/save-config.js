@@ -39,7 +39,7 @@ export const handler = async (event) => {
 
     // Save configuration as JSON file in S3
     const sanitizedCompanyName = companyName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    const configKey = `companies/${sanitizedCompanyName}/config.json`;
+    const configKey = `web/companies/${sanitizedCompanyName}/config.json`;
 
     const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,

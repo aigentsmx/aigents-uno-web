@@ -41,7 +41,7 @@ export const handler = async (event) => {
     // Generate company-specific S3 key structure
     const timestamp = Date.now();
     const sanitizedCompanyName = companyName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    const s3Key = `companies/${sanitizedCompanyName}/documents/${timestamp}-${fileName}`;
+    const s3Key = `web/companies/${sanitizedCompanyName}/documents/${timestamp}-${fileName}`;
 
     // Create presigned URL for PUT operation with metadata
     const command = new PutObjectCommand({
@@ -69,7 +69,7 @@ export const handler = async (event) => {
         uploadUrl,
         s3Key,
         fileName,
-        companyFolder: `companies/${sanitizedCompanyName}`
+        companyFolder: `web/companies/${sanitizedCompanyName}`
       })
     };
 

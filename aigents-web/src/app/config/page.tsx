@@ -104,6 +104,9 @@ export default function ConfigPage() {
     try {
       // First, save the company configuration
       console.log('Saving configuration...');
+      console.log('Company Name:', companyName.trim());
+      console.log('Website URL:', websiteUrl.trim());
+      
       const configResponse = await fetch('/.netlify/functions/save-config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -113,9 +116,17 @@ export default function ConfigPage() {
         })
       });
 
+      console.log('Config response status:', configResponse.status);
+      console.log('Config response ok:', configResponse.ok);
+      
       if (!configResponse.ok) {
-        throw new Error('Failed to save configuration');
+        const errorText = await configResponse.text();
+        console.error('Config response error:', errorText);
+        throw new Error(`Failed to save configuration: ${errorText}`);
       }
+
+      const configResult = await configResponse.json();
+      console.log('Config saved successfully:', configResult);
 
       // Then upload files if any (this will trigger processing automatically)
       if (files.length > 0) {
@@ -123,11 +134,13 @@ export default function ConfigPage() {
         
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
+          console.log(`Uploading file ${i + 1}/${files.length}:`, file.name);
           setUploadProgress(prev => ({ ...prev, [file.name]: 0 }));
           
           try {
             await uploadFileToS3(file);
             setUploadProgress(prev => ({ ...prev, [file.name]: 100 }));
+            console.log(`File uploaded successfully: ${file.name}`);
           } catch (error) {
             console.error(`Failed to upload ${file.name}:`, error);
             alert(`Error al subir ${file.name}. Por favor intenta de nuevo.`);
@@ -140,9 +153,9 @@ export default function ConfigPage() {
         alert('¡Configuración guardada exitosamente!');
       }
       
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error saving configuration:', error);
-      alert('Error al guardar la configuración. Por favor intenta de nuevo.');
+      alert(`Error al guardar la configuración: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsUploading(false);
       setUploadProgress({});
