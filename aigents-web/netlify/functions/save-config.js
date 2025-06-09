@@ -9,13 +9,13 @@ export const handler = async (event) => {
   }
 
   try {
-    const { companyName, prompt } = JSON.parse(event.body);
+    const { companyName, websiteUrl } = JSON.parse(event.body);
 
     // Validate required fields
-    if (!companyName || !prompt) {
+    if (!companyName || !websiteUrl) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Company name and prompt are required' })
+        body: JSON.stringify({ error: 'Company name and website URL are required' })
       };
     }
 
@@ -31,7 +31,7 @@ export const handler = async (event) => {
     // Create company configuration object
     const config = {
       companyName: companyName.trim(),
-      prompt: prompt.trim(),
+      websiteUrl: websiteUrl.trim(),
       processingStatus: 'idle',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
@@ -48,6 +48,7 @@ export const handler = async (event) => {
       ContentType: 'application/json',
       Metadata: {
         'company-name': companyName,
+        'website-url': websiteUrl,
         'last-updated': new Date().toISOString()
       }
     });
