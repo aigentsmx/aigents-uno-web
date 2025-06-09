@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Send, Bot, User, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -80,7 +81,7 @@ export default function ChatPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-br from-black via-gray-900 to-black">
+    <main className="min-h-screen flex flex-col bg-gradient-to-br from-black via-gray-900 to-black space-y-[45px]">
       {/* Header */}
       <div className="bg-black/30 border-b border-gray-700 p-6">
         <div className="container mx-auto max-w-4xl">
@@ -117,8 +118,8 @@ export default function ChatPage() {
       {/* Chat Container */}
       <div className="flex-1 flex flex-col">
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6 pt-12">
-          <div className="container mx-auto max-w-4xl space-y-6">
+        <div className="flex-1 overflow-y-auto p-6 pt-8 pb-8">
+          <div className="container mx-auto max-w-4xl space-y-[10px]">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -133,9 +134,9 @@ export default function ChatPage() {
                     : 'bg-gradient-to-r from-gray-600 to-gray-700'
                 }`}>
                   {message.sender === 'user' ? (
-                    <User className="h-5 w-5 text-white" />
+                    <User className="h-6 w-6 text-[#f6e6c3]" />
                   ) : (
-                    <Bot className="h-5 w-5 text-white" />
+                    <Bot className="h-6 w-6 text-[#F55AFC]" />
                   )}
                 </div>
 
@@ -143,20 +144,23 @@ export default function ChatPage() {
                 <div className={`flex-1 max-w-3xl ${
                   message.sender === 'user' ? 'flex justify-end' : ''
                 }`}>
-                  <div className={`rounded-full px-6 py-4 ${
-                    message.sender === 'user'
-                      ? 'bg-yellow-200 text-gray-800'
-                      : 'bg-pink-200 text-gray-800'
-                  }`}>
-                    <p className="text-base leading-relaxed">{message.content}</p>
-                    <p className={`text-xs mt-2 ${
-                      message.sender === 'user'
-                        ? 'text-gray-800'
-                        : 'text-gray-800'
-                    }`}>
-                      {message.timestamp.toLocaleTimeString()}
-                    </p>
-                  </div>
+                  <Card 
+                    className="shadow-lg"
+                    style={{
+                      backgroundColor: message.sender === 'user' ? '#fef3c7' : '#fce7f3',
+                      borderColor: message.sender === 'user' ? '#fcd34d' : '#f9a8d4',
+                      color: '#1f2937'
+                    }}
+                  >
+                    <CardContent className="p-4">
+                      <p className="text-base leading-relaxed" style={{ color: '#1f2937' }}>
+                        {message.content}
+                      </p>
+                      <p className="text-xs mt-2" style={{ color: '#4b5563' }}>
+                        {message.timestamp.toLocaleTimeString()}
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
               </div>
             ))}
@@ -165,19 +169,28 @@ export default function ChatPage() {
             {isTyping && (
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-gray-600 to-gray-700 flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-white" />
+                  <Bot className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1 max-w-3xl">
-                  <div className="bg-pink-200 rounded-full px-6 py-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <Card 
+                    className="shadow-lg"
+                    style={{
+                      backgroundColor: '#fce7f3',
+                      borderColor: '#f9a8d4',
+                      color: '#1f2937'
+                    }}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-2 h-2 bg-[#F55AFC] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        </div>
+                        <span className="text-sm" style={{ color: '#374151' }}>Escribiendo...</span>
                       </div>
-                      <span className="text-gray-700 text-sm">Escribiendo...</span>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </div>
             )}
