@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky",
+    "prepare": "command -v husky >/dev/null 2>&1 && husky || echo 'Husky not available in production, skipping git hooks setup'",
     "lint": "cd aigents-web && npm run lint",
     "lint:fix": "cd aigents-web && npm run lint:fix",
     "lint-staged": "cd aigents-web && npx eslint --fix",
