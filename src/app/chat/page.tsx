@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Send, Bot, User, ArrowLeft } from 'lucide-react';
@@ -15,7 +15,7 @@ interface Message {
   timestamp: Date;
 }
 
-export default function ChatPage() {
+function ChatContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -226,5 +226,26 @@ export default function ChatPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+function ChatLoading() {
+  return (
+    <main className="min-h-screen flex flex-col bg-gradient-to-br from-black via-gray-900 to-black">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-[#F55AFC] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-[#f6e6c3] text-lg">Cargando chat...</p>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<ChatLoading />}>
+      <ChatContent />
+    </Suspense>
   );
 } 
